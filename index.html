@@ -32,20 +32,6 @@
       font-weight: bold;
       text-transform: uppercase;
     }
-    h1 {
-      margin-bottom: 16px;
-      font-size: 28px;
-      color: #333;
-    }
-    p {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 24px;
-    }
-    .ml-form-embedContainer .ml-form-embedWrapper {
-      margin: 0 auto;
-      text-align: left;
-    }
     .footer {
       margin-top: 24px;
       font-size: 14px;
@@ -53,10 +39,8 @@
     }
     #backgroundCanvas {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: -1; /* places canvas behind container */
     }
   </style>
@@ -72,7 +56,7 @@
     <!-- ===== START MailerLite Embed Code ===== -->
     <style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1742466");</style>
     <style type="text/css">
-      /* LOADER */
+      /* LOADER (MailerLite Default) */
       .ml-form-embedSubmitLoad {
         display: inline-block;
         width: 20px;
@@ -86,19 +70,16 @@
       }
       .sr-only {
         position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
         overflow: hidden;
         clip: rect(0,0,0,0);
         border: 0;
       }
       .ml-form-embedSubmitLoad:after {
-        content: " ";
+        content: "";
         display: block;
-        width: 11px;
-        height: 11px;
+        width: 11px; height: 11px;
         margin: 1px;
         border-radius: 50%;
         border: 4px solid #fff;
@@ -106,17 +87,55 @@
         animation: ml-form-embedSubmitLoad 1.2s linear infinite;
       }
       @keyframes ml-form-embedSubmitLoad {
-        0% { transform: rotate(0deg); }
+        0%   { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-      /* Additional MailerLite styling truncated for brevity */
+      /* More MailerLite styling omitted for brevity. */
     </style>
 
     <style type="text/css">
       .ml-mobileButton-horizontal { display: none; }
-      /* Additional MailerLite styling truncated */
+      /* Additional MailerLite styling omitted for brevity. */
     </style>
-      
+
+    <!-- [OVERRIDE] Custom styles to match your desired layout and button look -->
+    <style>
+      /* Force the email input and button to sit side by side with the same row height */
+      .ml-form-embedBodyHorizontal .ml-form-horizontalRow {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important; /* center them horizontally */
+      }
+
+      /* Style the input field */
+      .ml-input-horizontal .form-control {
+        display: inline-block;
+        width: auto !important;
+        min-width: 200px;      /* ensures a decent width */
+        margin-right: 8px;     /* space between input & button */
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        background: #fff;
+        color: #333;
+        padding: 0 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      /* Style the subscribe button */
+      .ml-button-horizontal .primary {
+        background: #000 !important; /* black background */
+        color: #fff !important;      /* white text */
+        border: none !important;
+        border-radius: 0 !important; /* remove corner rounding */
+        height: 40px;
+        padding: 0 16px !important;  /* horizontal padding */
+        font-size: 16px !important;
+        cursor: pointer;
+      }
+    </style>
+
     <div id="mlb2-24002322" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-24002322">
       <div class="ml-form-align-center">
         <div class="ml-form-embedWrapper embedForm">
@@ -174,12 +193,12 @@
       </div>
     </div>
     <!-- ===== END MailerLite Embed Code ===== -->
-      
+
     <div class="footer">© 2025 Exclusive Birmingham LTD</div>
   </div>
 
+  <!-- Optional background canvas (particle animation) -->
   <script>
-    // Optional background canvas (particle animation)
     const canvas = document.getElementById('backgroundCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -205,25 +224,24 @@
     }
     function drawParticles() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach((p) => {
+      particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, false);
         ctx.fillStyle = p.color;
         ctx.fill();
         p.x += p.vx;
         p.y += p.vy;
-        if(p.x<0) p.x = canvas.width;
-        if(p.x>canvas.width) p.x=0;
-        if(p.y<0) p.y=canvas.height;
-        if(p.y>canvas.height) p.y=0;
+        if(p.x < 0) p.x = canvas.width;
+        if(p.x > canvas.width) p.x = 0;
+        if(p.y < 0) p.y = canvas.height;
+        if(p.y > canvas.height) p.y = 0;
       });
     }
     createParticles(50);
-    function animate() {
+    (function animate() {
       drawParticles();
       requestAnimationFrame(animate);
-    }
-    animate();
+    })();
   </script>
 </body>
 </html>
